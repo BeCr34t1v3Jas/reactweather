@@ -61,7 +61,7 @@ export default function WeatherSearch() {
         </ul>
       )}
       <footer>
-  This project was coded by Jazmi and is{" "}
+  This project was coded by Jasmin Mikolay and is{" "}
   <a
     href="https://github.com/BeCr34t1v3Jas/reactweather"
     target="_blank"
