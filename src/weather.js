@@ -1,39 +1,82 @@
 import React, { useState } from "react";
-import axios from "axios";
 import WeatherInfo from "./WeatherInfo";
-import Search from "./Search";
+import WeatherForecast from "./WeatherForecast";
+import "./Weather.css";
+import axios from "axios";
 
-export default function Weather() {
-  const [weather, setWeather] = useState({ ready: false });
-  const apiKey = "YOUR_API_KEY";
+export default function Weather(props) {
+  const [weatherData, setWeatherData] = useState({ ready: false });
+  const [city, setCity] = useState(props.defaultCity);
 
   function handleResponse(response) {
-    setWeather({
+    setWeatherData({
       ready: true,
-      city: response.data.name,
-      temperature: Math.round(response.data.main.temp),
+      coordinates: response.data.coord,
+      temperature: response.data.main.temp,
       humidity: response.data.main.humidity,
-      wind: response.data.wind.speed,
+      date: new Date(response.data.dt * 1000),
       description: response.data.weather[0].description,
       icon: response.data.weather[0].icon,
-      date: new Date(response.data.dt * 1000)
+      wind: response.data.wind.speed,
+      city: response.data.name,
     });
   }
 
-  function search(city) {
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+  function handleSubmit(event) {
+    event.preventDefault();
+    search();
+  }
+
+  function handleCityChange(event) {
+    setCity(event.target.value);
+  }
+
+  function search() {
+    const apiKey = "YOUR_API_KEY"; // Replace with your key
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
     axios.get(apiUrl).then(handleResponse);
   }
 
-  if (weather.ready) {
+  if (weatherData.ready) {
     return (
-      <div className="weather-app">
-        <Search onSearch={search} />
-        <WeatherInfo data={weather} />
+      <div className="Weather">
+        {/* The Top Links */}
+        <div className="cities-nav">
+           {/* You can make these functional later, for now just text/links */}
+           <span>Lisbon</span> <span>Paris</span> <span>Sydney</span> <span>San Francisco</span>
+        </div>
+
+        {/* The Search Form */}
+        <form onSubmit={handleSubmit}>
+          <div className="row">
+            <div className="col-9">
+              <input
+                type="search"
+                placeholder="Enter a city.."
+                className="form-control"
+                autoFocus="on"
+                onChange={handleCityChange}
+              />
+            </div>
+            <div className="col-3">
+              <input
+                type="submit"
+                value="Search"
+                className="btn btn-primary w-100"
+              />
+            </div>
+          </div>
+        </form>
+
+        {/* The Main Info Component */}
+        <WeatherInfo data={weatherData} />
+        
+        {/* The Forecast Component */}
+        <WeatherForecast coordinates={weatherData.coordinates} />
       </div>
     );
   } else {
-    search("New York");
+    search();
     return "Loading...";
   }
 }
