@@ -1,55 +1,21 @@
-<<<<<<< HEAD
 import React, { useState } from "react";
 
-export default function SearchBar({ onSearch }) {
-  const [cityInput, setCityInput] = useState("");
+export default function Search(props) {
+  const [city, setCity] = useState("");
 
   function handleSubmit(event) {
     event.preventDefault();
-    onSearch(cityInput);
-    setCityInput("");
+    props.onSearch(city);
   }
 
   return (
-    <form className="search-form" onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="search-form">
       <input
         type="search"
-        placeholder="Type a city.."
-        className="search-input"
-        value={cityInput}
-        onChange={(event) => setCityInput(event.target.value)}
+        placeholder="Enter a city..."
+        onChange={(e) => setCity(e.target.value)}
       />
-      <button type="submit" className="search-button">
-        Search
-      </button>
+      <button type="submit">Search</button>
     </form>
   );
 }
-=======
-import React, { useState } from "react";
-
-export default function SearchBar({ onSearch }) {
-  const [cityInput, setCityInput] = useState("");
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    onSearch(cityInput);
-    setCityInput("");
-  }
-
-  return (
-    <form className="search-form" onSubmit={handleSubmit}>
-      <input
-        type="search"
-        placeholder="Type a city.."
-        className="search-input"
-        value={cityInput}
-        onChange={(event) => setCityInput(event.target.value)}
-      />
-      <button type="submit" className="search-button">
-        Search
-      </button>
-    </form>
-  );
-}
->>>>>>> 5521a09 (Final version with GitHub link)
