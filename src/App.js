@@ -1,9 +1,10 @@
-.App {
-  max-width: 600px;
-  margin: 30px auto;
-}
+import React from "react";
+import Weather from "./Weather";
+import "./App.css";
 
-.App footer {
-  font-size: 11px;
-  margin: 10px 0;
-}
+export default function App() {
+  return (
+    <div className="App">
+      <div className="container">
+        <Weather defaultCity="New York" />
+
