@@ -1,83 +1,40 @@
-<<<<<<< HEAD
 import React from "react";
 
-export default function WeatherInfo({
-  city,
-  temperature,
-  description,
-  lastUpdated,
-  humidity,
-  wind,
-}) {
+export default function WeatherInfo({ data }) {
   return (
-    <div className="weather-main">
-      <div className="weather-left">
-        <h1 className="city-name">{city}</h1>
+    <div className="weather-card">
+      <div className="weather-main">
+        <div>
+          <h1>{data.city}</h1>
+          <ul>
+            <li>
+              {data.date.toLocaleString("en-US", {
+                weekday: "long",
+                hour: "2-digit",
+                minute: "2-digit"
+              })}
+            </li>
+            <li className="text-capitalize">{data.description}</li>
+          </ul>
+        </div>
 
-        <ul className="weather-details">
-          <li>Last updated: {lastUpdated}</li>
-          <li>{description}</li>
-        </ul>
-
-        <div className="weather-bottom">
-          <div className="weather-icon" />
-          <div className="weather-temp">
-            <span className="temperature">{temperature}</span>
-            <span className="units">
-              <a href="/">°C</a> | <a href="/">°F</a>
-            </span>
-          </div>
+        <div className="weather-details">
+          <ul>
+            <li>Humidity: <strong>{data.humidity}%</strong></li>
+            <li>Wind: <strong>{Math.round(data.wind)} km/h</strong></li>
+          </ul>
         </div>
       </div>
 
-      <div className="weather-right">
-        <ul className="weather-stats">
-          <li>Humidity: {humidity}%</li>
-          <li>Wind: {wind} km/h</li>
-        </ul>
+      <div className="weather-temperature">
+        <img
+          src={`https://openweathermap.org/img/wn/${data.icon}@2x.png`}
+          alt={data.description}
+        />
+        <span className="temp">{data.temperature}</span>
+        <span className="unit">°C</span>
       </div>
     </div>
   );
 }
-=======
-import React from "react";
 
-export default function WeatherInfo({
-  city,
-  temperature,
-  description,
-  lastUpdated,
-  humidity,
-  wind,
-}) {
-  return (
-    <div className="weather-main">
-      <div className="weather-left">
-        <h1 className="city-name">{city}</h1>
-
-        <ul className="weather-details">
-          <li>Last updated: {lastUpdated}</li>
-          <li>{description}</li>
-        </ul>
-
-        <div className="weather-bottom">
-          <div className="weather-icon" />
-          <div className="weather-temp">
-            <span className="temperature">{temperature}</span>
-            <span className="units">
-              <a href="/">°C</a> | <a href="/">°F</a>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div className="weather-right">
-        <ul className="weather-stats">
-          <li>Humidity: {humidity}%</li>
-          <li>Wind: {wind} km/h</li>
-        </ul>
-      </div>
-    </div>
-  );
-}
->>>>>>> 5521a09 (Final version with GitHub link)
