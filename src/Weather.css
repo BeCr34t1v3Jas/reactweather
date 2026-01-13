@@ -46,4 +46,54 @@
   position: relative;
   line-height: 1;
   top: -34px;
+
+}
+
+
+.Weather {
+  color: #878787;
+  font-family: arial, sans-serif;
+  border: 1px solid #dadde1;
+  padding: 20px; /* Provides the spacing inside the white box */
+  border-radius: 10px; /* Rounds the corners */
+  margin: 0 auto; /* Centers the box */
+  background-color: #fff; /* Ensures background is white */
+  max-width: 600px; /* Keeps it from getting too wide */
+}
+
+/* Style the top links */
+.Weather .cities-nav {
+    margin-bottom: 20px;
+    color: #0d6efd;
+    font-size: 14px;
+}
+.Weather .cities-nav span {
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+/* Style the form */
+.Weather form {
+  margin-bottom: 20px;
+}
+
+/* Make the City Name Big */
+.Weather h1 {
+  font-size: 38px;
+  font-weight: 500;
+  line-height: 28px;
+  margin-bottom: 0;
+  color: #212529;
+}
+
+.Weather ul {
+  margin: 0;
+  padding: 0;
+}
+
+.Weather li {
+  font-size: 16px;
+  list-style: none;
+  font-weight: 100;
+  line-height: 19px;
 }
