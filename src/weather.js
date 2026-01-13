@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import WeatherInfo from "./WeatherInfo";
-import WeatherForecast from "./WeatherForecast";
-import "./Weather.css";
+import WeatherForecast from "./WeatherForecast"; // Make sure filename matches!
 import axios from "axios";
+import "./Weather.css";
 
 export default function Weather(props) {
   const [weatherData, setWeatherData] = useState({ ready: false });
@@ -11,14 +11,14 @@ export default function Weather(props) {
   function handleResponse(response) {
     setWeatherData({
       ready: true,
-      coordinates: response.data.coord,
-      temperature: response.data.main.temp,
-      humidity: response.data.main.humidity,
-      date: new Date(response.data.dt * 1000),
-      description: response.data.weather[0].description,
-      icon: response.data.weather[0].icon,
+      coordinates: response.data.coordinates,
+      temperature: response.data.temperature.current,
+      humidity: response.data.temperature.humidity,
+      date: new Date(response.data.time * 1000),
+      description: response.data.condition.description,
+      icon: response.data.condition.icon_url, // SheCodes API URL
       wind: response.data.wind.speed,
-      city: response.data.name,
+      city: response.data.city,
     });
   }
 
@@ -32,21 +32,14 @@ export default function Weather(props) {
   }
 
   function search() {
-    const apiKey = "YOUR_API_KEY"; // Replace with your key
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    const apiKey = "o451tfe63da40fdab9f02fbc358bc697";
+    let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
     axios.get(apiUrl).then(handleResponse);
   }
 
   if (weatherData.ready) {
     return (
       <div className="Weather">
-        {/* The Top Links */}
-        <div className="cities-nav">
-           {/* You can make these functional later, for now just text/links */}
-           <span>Lisbon</span> <span>Paris</span> <span>Sydney</span> <span>San Francisco</span>
-        </div>
-
-        {/* The Search Form */}
         <form onSubmit={handleSubmit}>
           <div className="row">
             <div className="col-9">
@@ -67,11 +60,11 @@ export default function Weather(props) {
             </div>
           </div>
         </form>
-
-        {/* The Main Info Component */}
+        
+        {/* We pass the data to WeatherInfo to handle the layout */}
         <WeatherInfo data={weatherData} />
         
-        {/* The Forecast Component */}
+        {/* We pass coordinates to Forecast to get the next days */}
         <WeatherForecast coordinates={weatherData.coordinates} />
       </div>
     );
